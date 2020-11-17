@@ -10,6 +10,8 @@ node {
     def SFDC_HOST = env.SFDC_HOST_DH
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
+	SFDX_USE_GENERIC_UNIX_KEYCHAIN = true
+
 
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
@@ -26,7 +28,7 @@ node {
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
 	    
 	    stage('Authorize to Salesforce') {
-			rc = command "${toolbelt}/sfdx force:auth:jwt:grant --instanceurl ${SFDC_HOST} --clientid ${CONNECTED_APP_CONSUMER_KEY} --jwtkeyfile ${jwt_key_file} --username ${HUB_ORG} --setalias UAT"
+			rc = command "${toolbelt} force:auth:jwt:grant --instanceurl ${SFDC_HOST} --clientid ${CONNECTED_APP_CONSUMER_KEY} --jwtkeyfile ${jwt_key_file} --username ${HUB_ORG} --setalias UAT"
 		    if (rc != 0) {
 			error 'Salesforce org authorization failed.'
 		    }
