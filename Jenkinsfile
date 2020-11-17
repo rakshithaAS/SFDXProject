@@ -33,12 +33,12 @@ JWT_CRED_ID_DH = '3e054a81-2808-4d3c-b1e7-f9dd4a35156c'
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-	     stage('Authorize DevHub') {
+	    /* stage('Authorize DevHub') {
                 rc = command "${toolbelt}/sfdx auth:jwt:grant --instanceurl ${SFDC_HOST} --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --setalias HubOrg"
                 if (rc != 0) {
                     error 'Salesforce dev hub org authorization failed.'
                 }
-	     }
+	     }*/
 	    
 	    
         stage('Deploye Code') {
